@@ -22,8 +22,7 @@ Q: 为什么要用GIT?
 ## 安装及初步使用
 
 ```bash
-sudo apt-get install git
-;安装
+sudo apt-get install git;安装
 
 git config --global user.name "xxx";设置用户名
 git config --global user.email "xxx@xx.com";设置用户邮箱
@@ -33,7 +32,6 @@ git config --list;查看配置
 
 
 ssh-keygen -t rsa;生成ssh连接公密钥，windows下请将文件放在git安装目录下的.ssh目录下
-g
 ssh git@github.com;测试ssh是否配转置成功
 ```
 
@@ -54,3 +52,31 @@ Git做为一个资源管理和跟踪系统，如果想要把自己的文件托�
 ![git状态](git1.png)
 ![git状态](git2.png)
 ![git状态](git3.png)
+
+
+## Git基本操作
+
+### 初始化仓库
+
+```bash
+git init;//创建新仓库
+git clone [url];//从远程仓库克隆
+git clone [path];//从本地仓库克隆，如git clone /home/www/test
+```
+
+### 添加文件
+
+```bash
+git add filename1 filename2;按文件名添加
+git add -A .;添加所有
+```
+
+### 添加一个版本
+
+```bash
+git commit -m "commit message"
+git commit -am "commit message";//将所有以前添加过并修改过的文件commit进去
+```
+> 关于`-a`参数的意义
+
+> 其实`git add`命令只是指定文件的当前状态添加暂存区域，并不代表一个文件一时旦添加，就会一直存在每个版本中。如果你添加一个文件后对这个又进行了修改，在你`commit`时候，只会`commit`这个文件添加时的状态，不会把之后的修改也`commit`进去，除非你再次添加
