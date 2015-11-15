@@ -148,6 +148,11 @@ git reset --hard HEAD^;滚回上一个版本
 git reset --hard 版本号;滚回指定版本
 ```
 
+如果你想回退远程分支，可以这样做：
+
+```bash
+git revert 版本号
+```
 
 
 ### 其他资料
