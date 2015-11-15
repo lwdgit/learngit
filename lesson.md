@@ -94,7 +94,6 @@ git remote;//只会列出服务器的别名，不会列出地址
 ```
 
 一个仓库可以有多个服务器地址，这就意味着，你可以从不同的人手中复制同一个仓库，但这并不会打乱你自己的分支。
-<<<<<<< HEAD
 
 
 合并其他代码到你的版本中，可以这样做：
@@ -169,5 +168,3 @@ http://roclinux.cn/?p=622
 http://blog.csdn.net/wengpingbo/article/details/8985132
 
 
-=======
->>>>>>> parent of 5b0ef07... finish
