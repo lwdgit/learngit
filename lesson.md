@@ -94,3 +94,72 @@ git remote;//只会列出服务器的别名，不会列出地址
 ```
 
 一个仓库可以有多个服务器地址，这就意味着，你可以从不同的人手中复制同一个仓库，但这并不会打乱你自己的分支。
+
+
+合并其他代码到你的版本中，可以这样做：
+
+```bash
+git remote add code_a git@github.com:xxx/xxxx
+git fetch code_a;也可以用pull code_a master
+git merge code_a/master;fetch并不会合并代码
+git push origin master
+```
+
+### 创建并管理分支
+
+在做项目的时候，你可能会想写一些扩展性的功能，或者做一些小实验，但是你又不想影响你现在的项目。这个时候，你可以创建一个分支，然后在这个分支里写东西，当觉得不好的时候，你可以把这个分支删除掉，对你之前的主分支没有任何影响。或者你觉得这个新特性超出了自己的预想，可以合并到主分支里，这时候你只要把工作转回主分支，然后合并分支，最后删除分支，然后就跟没有那个分支一样。具体操作如下：
+
+```bash
+git branch test;创建一个test分支
+git checkout test;切换到test分支,这两步操作也可以用git checkout -b test实现
+;edit commit debug util merge
+
+git checkout master;切换回master
+git merge test;将test合并进master
+git checkout -b test2;创建test2分支，并转到test2分支
+git branch -d test;删除分支test
+git branch;列出所有分支
+git branch -v;列出所有分支及当前commit信息
+```
+
+> `git merge`实质是把两个版本合并在一起，然后在当前分支创建一个新的`commit`，如果你在两个分支的同一个文件的同一地方都做了修改，这时候`merge`就会失败，git就不会自动创建一个`commit`，而是直接停住。你需要手动修改这些冲突的文件，选择这两个分支中的一个版本，或者自己重写这个部分，然后手动添加这些文件到暂存区域，再`commit`就ok了。要查看哪些文件冲突了，可以用`git status`查看。
+
+### 撤消改动
+
+如果你提交太早，忘了添加某些文件，你可以这样做：
+```bash
+git commit -m "add something"
+git add file1
+git commit --amend -m "fix some bug";修改上一次的commit log
+```
+
+如果你添加了不该添加的文件，你可以这样挽回：
+
+```bash
+git add -A .
+git reset HEAD readme.md;将reame.md中踢出Stage area
+```
+
+如果你编译错了一个文件，你想把它恢复到上一个版本的状态，你可以这样做：
+
+```bash
+git checkout -- readme.md;撤消这个文件的修改
+git reset --hard HEAD^;滚回上一个版本
+git reset --hard 版本号;滚回指定版本
+```
+
+
+
+## 其他资料
+
+http://selfcontroller.iteye.com/blog/1786644
+
+http://blog.csdn.net/qinjienj/article/details/7816047
+
+http://blog.chinaunix.net/uid-9185047-id-445215.html
+
+http://roclinux.cn/?p=622
+
+http://blog.csdn.net/wengpingbo/article/details/8985132
+
+
