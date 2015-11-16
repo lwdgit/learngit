@@ -75,7 +75,7 @@ git add filename1;在文件被修改后，需要再次使用git add才会被comm
 ### 添加一个版本
 
 ```bash
-git commit -m "commit message"
+git commit -m "commit message";只commit本次add过的文件
 git commit -am "commit message";//将所有以前添加过并修改过的文件commit进去
 ```
 > 关于`-a`参数的意义
@@ -90,7 +90,7 @@ git commit -am "commit message";//将所有以前添加过并修改过的文件c
 
 ```bash
 git remote -v;
-git remote;//只会列出服务器的别名，不会列出地址
+git remote;只会列出服务器的别名，不会列出地址
 ```
 
 一个仓库可以有多个服务器地址，这就意味着，你可以从不同的人手中复制同一个仓库，但这并不会打乱你自己的分支。
@@ -148,14 +148,56 @@ git reset --hard HEAD^;滚回上一个版本
 git reset --hard 版本号;滚回指定版本
 ```
 
+
 如果你想回退远程分支，可以这样做：
 
 ```bash
 git revert 版本号
 ```
 
+## 高级用法
 
-### 其他资料
+### 在Git中忽略文件
+
+如果需要让Git忽略特定文件或目录，只需要简单的创建一个`.gitignore`文件，然后列出你不想让Git跟踪的文件和目录即可。你可以使用感叹号`!`来指出例外的情况。
+
+```git
+*.pyc
+*.exe
+my_db_config/
+!main.pyc
+```
+
+### 查看代码改动情况
+
+```bash
+git blame filename
+```
+
+### 回顾仓库历史
+
+可以使用`git log`,它有三个选项，你应该了解。
+
+* `--oneline`   把每次提交间显示的信息压缩成只有hash和提交message的信息，在一行显示
+* `--graph`     该选项会在输出界面的左手边用一种基于文本的图形表示法显示历史。如果你只是浏览一个单独分支的历史，那么这个功能是没有用的
+* `--all`       显示全部分支的历史
+
+### 绝不丢失一个提交信息
+
+如果你提交了一个你不想要的代码，并且在之后你通过使用`git reset`使其回到了之前的状态。那么`git log`上的信息可能会丢失。而`git reflog`可以记录你的所有操作。
+
+`git reflog`显示的是所有`head`移动的信息。记住，它是在本地的，而不是你仓库的一部分，不会包含推送`(push)`和合并中`(merge)`。
+
+### 合并多次提交
+
+当你提交你的代码进行审核并创建一个`pull request`时，你经常会在代码被采纳之前，要求修改一些代码。你进行了一些修改，而在下一次审核中，又会被要求进行另外的修改。你不知道还有多少次修改等着你，在你知道之前，你进行了多次额外的提交。理想的状态是，你可以使用`rebase`命令，把他们都合并成一次提交。
+
+```bash
+git rebase -i HEAD~2;合并最后两次提交
+```
+
+
+## 其他资料
 
 http://selfcontroller.iteye.com/blog/1786644
 
